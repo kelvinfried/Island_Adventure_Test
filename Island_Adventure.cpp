@@ -11,6 +11,19 @@ using namespace std;
 	int x = 0, y = 0;
 	void checkBoundries();
 	
+		//check array limits
+void checkBoundries()
+{
+	if (x == 10)
+		x = 9;
+	if (x == -1)
+		x = 0;
+	if (y == -1)
+		y = 0;
+	if (y == 10)
+		y = 9;
+}
+
 int main()
 {
 	//
@@ -33,7 +46,7 @@ int main()
 	island[0][0] = "Welcome to Island Adventure";
 	island[0][5] = "C++ is a middle level language ";
 
-	Island Adventure
+
 	island[0][8] = "C++ syntax may be difficult, but it is a very powerful language ";
 	island[0][9] = "C++ language was developed by Bjarne Stroustrup ";
 	island[3][6] = "C++ Standard Library is a collection of classes and functions ";
@@ -45,7 +58,7 @@ int main()
 	cout << "Use arrow keys for the navigation \n";
 	while (flag)
 	{
-		if (_getch() != NULL)
+		if (_getch() != 0)
 		{
 			key_press = _getch(); // need to include conio.h
 			ascii_value = key_press;
@@ -84,18 +97,6 @@ int main()
 	cout << "Thank you for playing Island Adventures \n";
 }
 		
-	//check array limits
-static void checkBoundries()
-{
-	if (x == 10)
-		x = 9;
-	if (x == -1)
-		x = 0;
-	if (y == -1)
-		y = 0;
-	if (y == 10)
-		y = 9;
-}
 	// Run program: Ctrl + F5 or Debug > Start Without Debugging menu 3
 	//Island Adventure
 	// Debug program: F5 or Debug > Start Debugging menu

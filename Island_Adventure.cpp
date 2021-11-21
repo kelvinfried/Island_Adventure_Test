@@ -149,8 +149,8 @@ int main()
 			player_score ++;	//Incriments their score up.
 			//Then to move/ reset the score and damage squares=
 				//Reset Island
-			island[ score_square.get_x() ][ score_square.get_y ] = 0;
-			island[ damage_square.get_x() ][ damage_square.get_y ] = 0;
+			island[ score_square.get_x() ][ score_square.get_y() ] = 0;
+			island[ damage_square.get_x() ][ damage_square.get_y() ] = 0;
 				//Set Island stats 
 					//Score square
 			score_square.set_x( rand() % ( XSIZE - 1) );
@@ -169,6 +169,16 @@ int main()
 			//Damage the player
 			player_hitpoints --;	//Player takes damage 
 			cout<< "You took one point of damage, you have " << player_hitpoints << " left" << endl;
+		}
+		
+		else
+		{
+			;
+		}
+		
+		if( player_hitpoints == 0 )
+		{
+			flag = false;
 		}
 		
 		else
@@ -211,8 +221,8 @@ int main()
 		
 		/* Here is where we clear the screen */
 		system("CLS");
-		cout << "Your current position of x = " << player_current_x << " and y = " << player_current_y <<
-		endl;
+		cout<< "Your current position of x = " << player_current_x << " and y = " << player_current_y << endl;
+		cout<< "The players current health is " << player_hitpoints << " with a score of " << player_score << endl;
 		cout << island[ player_current_x ][ player_current_y ] << endl;
 	}
 	

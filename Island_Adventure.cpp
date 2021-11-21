@@ -114,7 +114,7 @@ int main()
 		damage_square.set_state( true );	//Set now so it does not need to be changed later
 //Setting positions
 	//Score square
-	score_square.set_x( rand() % ( XSIZE - 1) );	//passes in a value less than 10
+	score_square.set_x( rand() % ( XSIZE - 1) );	//passes in a value less than the max array size
 	score_square.set_y( rand() % ( YSIZE - 1) );
 		//Damage square 
 	damage_square.set_x( rand() % ( XSIZE - 1 ) );
@@ -146,12 +146,29 @@ int main()
 		if( island[ player_current_x ][ player_current_y ] == 1 )
 		{
 			//Score reward if there is a match
-				//Then to move/ reset the score and damage squares=
+			player_score ++;	//Incriments their score up.
+			//Then to move/ reset the score and damage squares=
+				//Reset Island
+			island[ score_square.get_x() ][ score_square.get_y ] = 0;
+			island[ damage_square.get_x() ][ damage_square.get_y ] = 0;
+				//Set Island stats 
+					//Score square
+			score_square.set_x( rand() % ( XSIZE - 1) );
+			score_square.set_y( rand() % ( YSIZE - 1) );
+					//Damage square 
+			damage_square.set_x( rand() % ( XSIZE - 1 ) );
+			damage_square.set_y( rand() % ( YSIZE - 1 ) );	
+			
+					//Changing Island properties for the next targers
+			island[ score_square.get_x() ][ score_square.get_y() ] = 1;
+			island[ damage_square.get_x() ][ damage_square.get_y() ] = 2;
 		}
 		
 		else if( island[ player_current_x ][ player_current_y ] == 2 )
 		{
 			//Damage the player
+			player_hitpoints --;	//Player takes damage 
+			cout<< "You took one point of damage, you have " << player_hitpoints << " left" << endl;
 		}
 		
 		else
@@ -191,9 +208,6 @@ int main()
 		//Used to correct the position if they are out of bounds.
 		player_current_x = checkBoundries( player_current_x, XMIN, XSIZE );
 		player_current_y = checkBoundries( player_current_y, YMIN, YSIZE );
-		
-		//Scoring and Damage Check
-		
 		
 		/* Here is where we clear the screen */
 		system("CLS");

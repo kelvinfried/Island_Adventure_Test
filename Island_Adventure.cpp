@@ -1,6 +1,8 @@
 // IslandAdventure.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //Developed by M Nickbakhsh
 //Updated 29/10/2020 for the TOGA students
+
+//Change examples comment
 #include <iomanip>
 using namespace std;
 #include <string>

@@ -8,31 +8,19 @@ using namespace std;
 #include <string>
 #include <iostream>
 #include <conio.h>
+#include <stdlib.h>	//Used for random numbers
+#include <time.h> //Used for initialising the random numeber seed.
 
-	const int aSize = 20;	//Used to define the array's size.	//Here it is used for 0-1
-	int x = 0, y = 0;
-	void checkBoundries();
 	
-		//check array limits
-void checkBoundries()
-{
-	if (x == 10)
-		x = 9;
-	if (x == -1)
-		x = 0;
-	if (y == -1)
-		y = 0;
-	if (y == 10)
-		y = 9;
-}
-
-int main()
-{
 //Set up
 	//Vairable delairation.
 		//Array Vairablres
 	int i, j;	//Used for holding the index vairable for the array build up.
+	
+	const int aSize = 20;	//Used to define the array's size.	//Here it is used for 0-1
 	string island[aSize][aSize];	//2d array defined using the sizes passed in; AS it is not the array has 2 sets of 20.
+	
+	srand( time( NULL ) );	//Initialised the randon numebr seed.
 	
 		//player vairables 
 	char key_press;	//Holds the indivual key press
@@ -40,7 +28,77 @@ int main()
 	int player_hitpoints = 3;	//Used to keep track of the players current hit points
 		const int player_starting_x = 1;	//Defines their starting point, so I don't ahve to change it each time manually
 		const int player_starting_y = 1;
+		
+		int player_current_x = 0;	//Holds the plauers current position, will be altered as they move
+		int player_current_y = 0;
+		
+	//Square class;
+	class Square
+	{		//Vairables
+		private:	//Values for the square
+			int x;	//Positonal counters, used to keep track of where the square currently is.
+			int y;
+			bool state;	//Donotates if it is a reward square or a damage square
+			//Constructor
+		Square()	//Constructor call to set default values;
+		{
+			x = 0;
+			y = 0;
+			state = false:	//Defaults to being a score square.
+		}
+		
+			//Methods
+				//Getters
+		public:
+			int get_x()
+			{
+				return x;
+			}
+			
+			int get_y()
+			{
+				return y;
+			}
+			
+			bool get_state()
+			{
+				return state;
+			}
+			
+					//Setters
+			void set_x( int new_position )	//Used to define the position of x, with an arguement
+			{
+				x = new_position;
+			}
+				
+			void set_y( int new_position )	//^ but for Y
+			{
+				y = new_position;
+			}
+			
+			void set_state( bool new_state )	//Used to define what type of square it will be
+			{
+				state = new_state;
+			}
+	};
 	
+//check array limits
+int checkBoundries( position_to_check )	//Used to keep the player within predefined boundaries
+{
+	switch( position_to_check )
+	{
+		case: 10
+			return 9;
+			break;
+			
+		case: -1
+			return 0;
+			break;
+	}
+}
+
+int main()
+{	
 	for (size_t i = 0; i < (sizeof(island) / sizeof(island[0])) - 1; i++)
 		{
 		for (size_t j = 0; j < (sizeof(island) / sizeof(island[0])) - 1; j++)

@@ -9,7 +9,7 @@ using namespace std;
 #include <iostream>
 #include <conio.h>
 
-	const int aSize = 20;
+	const int aSize = 20;	//Used to define the array's size.	//Here it is used for 0-1
 	int x = 0, y = 0;
 	void checkBoundries();
 	
@@ -28,12 +28,18 @@ void checkBoundries()
 
 int main()
 {
-	//
-	int i, j;
-	char key_press;
-	int ascii_value;
-	string island[aSize][aSize];
-	cout << "Weclome to Island Adventure\n";
+//Set up
+	//Vairable delairation.
+		//Array Vairablres
+	int i, j;	//Used for holding the index vairable for the array build up.
+	string island[aSize][aSize];	//2d array defined using the sizes passed in; AS it is not the array has 2 sets of 20.
+	
+		//player vairables 
+	char key_press;	//Holds the indivual key press
+	int ascii_value;	//Used to hold the ascii value of the inputted button to be used as controls
+	int player_hitpoints = 3;	//Used to keep track of the players current hit points
+		const int player_starting_x = 1;	//Defines their starting point, so I don't ahve to change it each time manually
+		const int player_starting_y = 1;
 	
 	for (size_t i = 0; i < (sizeof(island) / sizeof(island[0])) - 1; i++)
 		{
@@ -45,19 +51,19 @@ int main()
 		}
 		
 	//Setting the values of locations on the island
-	island[0][0] = "Welcome to Island Adventure";
+	/*island[0][0] = "Welcome to Island Adventure";
 	island[0][5] = "C++ is a middle level language ";
 
 
 	island[0][8] = "C++ syntax may be difficult, but it is a very powerful language ";
 	island[0][9] = "C++ language was developed by Bjarne Stroustrup ";
-	island[3][6] = "C++ Standard Library is a collection of classes and functions ";
+	island[3][6] = "C++ Standard Library is a collection of classes and functions ";*/
 	
 	cout << island[1][1] << endl;
 	bool flag = true;//this variable is used to exit the loop when
 	
 	//any keys other than the arrow keys are pressed
-	cout << "Use arrow keys for the navigation \n";
+	cout << "Use arrow keys for the navigation, when you press anything else you forfit the game \n";
 	while (flag)
 	{
 		if (_getch() != 0)
@@ -83,7 +89,7 @@ int main()
 				y--;
 				break;
 				
-				case 0:
+				default:
 				flag = false;
 				break;
 			}
@@ -98,14 +104,3 @@ int main()
 	
 	cout << "Thank you for playing Island Adventures \n";
 }
-		
-	// Run program: Ctrl + F5 or Debug > Start Without Debugging menu 3
-	//Island Adventure
-	// Debug program: F5 or Debug > Start Debugging menu
-	// Tips for Getting Started:
-	// 1. Use the Solution Explorer window to add/manage files
-	// 2. Use the Team Explorer window to connect to source control
-	// 3. Use the Output window to see build output and other messages
-	// 4. Use the Error List window to view errors
-	// 5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-	// 6. In the future, to open this project again, go to File > Open > Project and select the .sln file

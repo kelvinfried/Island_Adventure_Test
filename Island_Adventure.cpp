@@ -12,7 +12,6 @@ using namespace std;
 #include <stdlib.h>	//Used for random numbers
 #include <time.h> //Used for initialising the random numeber seed.
 
-	
 //Set up
 	//Vairable delairation.
 		//Array Vairablres
@@ -89,12 +88,12 @@ using namespace std;
 //check play space boundaries
 int checkBoundries( int position_to_check, int maximum, int minimum )	//Used to keep the player within predefined boundaries
 {
-	if( position_to_check == maximum )
+	if( position_to_check > maximum )
 	{
 		return maximum --;
 	}
 		
-	else if( position_to_check == minimum )
+	else if( position_to_check > minimum )
 	{
 		return minimum ++;
 	}
@@ -122,6 +121,7 @@ int main()
 	
 	cout<< "Score co-ordinates " << score_square.get_x() << " " << score_square.get_y() << endl;
 	cout<< "Damage co-ordinates " << damage_square.get_x() << " " << damage_square.get_y() << endl;
+	
 	//Setting the values of locations on the island
 	for (size_t i = 0; i < ( XSIZE + 1 ) ; i++)
 	{
@@ -152,11 +152,10 @@ int main()
 			island[ score_square.get_x() ][ score_square.get_y() ] = 0;
 			island[ damage_square.get_x() ][ damage_square.get_y() ] = 0;
 				//Set Island stats 
-					//Score square
-			score_square.set_x( rand() % ( XSIZE - 1) );
+			score_square.set_x( rand() % ( XSIZE - 1) );//Score square
 			score_square.set_y( rand() % ( YSIZE - 1) );
-					//Damage square 
-			damage_square.set_x( rand() % ( XSIZE - 1 ) );
+	 
+			damage_square.set_x( rand() % ( XSIZE - 1 ) );//Damage square
 			damage_square.set_y( rand() % ( YSIZE - 1 ) );	
 			
 					//Changing Island properties for the next targers
@@ -176,14 +175,15 @@ int main()
 			;
 		}
 		
-		if( player_hitpoints == 0 )
+		//Player hitpoint evaluation
+		switch( player_hitpoints )
 		{
-			flag = false;
-		}
-		
-		else
-		{
-			;
+			case 0:
+				cout<< "You have died" << endl;
+				break;
+				
+			default:
+				break;
 		}
 		
 		if (_getch() != 0)
@@ -215,6 +215,7 @@ int main()
 				break;
 			}
 		}
+		
 		//Used to correct the position if they are out of bounds.
 		player_current_x = checkBoundries( player_current_x, XMIN, XSIZE );
 		player_current_y = checkBoundries( player_current_y, YMIN, YSIZE );

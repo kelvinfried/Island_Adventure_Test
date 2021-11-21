@@ -8,6 +8,7 @@ using namespace std;
 #include <string>
 #include <iostream>
 #include <conio.h>
+#include <stdio.h>
 #include <stdlib.h>	//Used for random numbers
 #include <time.h> //Used for initialising the random numeber seed.
 
@@ -20,7 +21,6 @@ using namespace std;
 	const int aSize = 20;	//Used to define the array's size.	//Here it is used for 0-1
 	string island[aSize][aSize];	//2d array defined using the sizes passed in; AS it is not the array has 2 sets of 20.
 	
-	srand( time( NULL ) );	//Initialised the randon numebr seed.
 	
 		//player vairables 
 	char key_press;	//Holds the indivual key press
@@ -28,28 +28,29 @@ using namespace std;
 	int player_hitpoints = 3;	//Used to keep track of the players current hit points
 		const int player_starting_x = 1;	//Defines their starting point, so I don't ahve to change it each time manually
 		const int player_starting_y = 1;
+	int player_score = 0;	//Keeps track of the players score
 		
 		int player_current_x = 0;	//Holds the plauers current position, will be altered as they move
 		int player_current_y = 0;
 		
-	//Square class;
-	class Square
+		
+	class square_tile //Square class;
 	{		//Vairables
 		private:	//Values for the square
 			int x;	//Positonal counters, used to keep track of where the square currently is.
 			int y;
 			bool state;	//Donotates if it is a reward square or a damage square
-			//Constructor
-		Square()	//Constructor call to set default values;
-		{
-			x = 0;
-			y = 0;
-			state = false:	//Defaults to being a score square.
-		}
 		
 			//Methods
-				//Getters
 		public:
+				//constructor 
+			square_tile()	//Constructor call to set default values;
+			{
+				x = 0;
+				y = 0;
+				state = false;	//Defaults to being a score square.
+			}
+				//getters
 			int get_x()
 			{
 				return x;
@@ -65,10 +66,10 @@ using namespace std;
 				return state;
 			}
 			
-					//Setters
+				//Setters
 			void set_x( int new_position )	//Used to define the position of x, with an arguement
 			{
-				x = new_position;
+				x = new_position;	//Uses the passed in value to update position of the square
 			}
 				
 			void set_y( int new_position )	//^ but for Y
@@ -81,24 +82,55 @@ using namespace std;
 				state = new_state;
 			}
 	};
-	
-//check array limits
-int checkBoundries( position_to_check )	//Used to keep the player within predefined boundaries
+
+//check play space boundaries
+int checkBoundries( int position_to_check )	//Used to keep the player within predefined boundaries
 {
 	switch( position_to_check )
 	{
-		case: 10
+		case 10:
 			return 9;
 			break;
 			
-		case: -1
+		case -1:
 			return 0;
 			break;
+			
+		default:
+			return position_to_check;
+			break;
 	}
+	
+	return position_to_check;
 }
 
+//Check array  
+//int array_element_counter(  
 int main()
 {	
+	srand (time(NULL));	//Has to be done in the main or it will not work
+	
+	//Defining the two squares
+	square_tile score_square;
+	
+	square_tile damage_square;
+		damage_square.set_state( true );	//Set now so it does not need to be changed later
+	
+	//Setting positions
+		//Score square
+	score_square.set_x( rand() %10 );	//passes in a value less than 10
+	score_square.set_y( rand() %10 );
+	
+		//Damage square 
+	damage_square.set_x( rand() %10 );
+	damage_square.set_y( rand() %10	);
+	
+	//Need to make a check to ensure there is no overlap	//Later 
+	
+	int index = 0; 
+	
+	while( true )
+
 	for (size_t i = 0; i < (sizeof(island) / sizeof(island[0])) - 1; i++)
 		{
 		for (size_t j = 0; j < (sizeof(island) / sizeof(island[0])) - 1; j++)
@@ -132,31 +164,32 @@ int main()
 			switch (ascii_value)
 			{
 				case 72://integer value for the UP key
-				x--;
+				player_current_x--;
 				break;
 				
 				case 80://integer value for DOWN key
-				x++;
+				player_current_x++;
 				break;
 				
 				case 77:// integer value for the RIGHT key
-				y++;
+				player_current_y++;
 				break;
 				
 				case 75:// integer value for the LEFT key
-				y--;
+				player_current_y--;
 				break;
 				
 				default:
 				flag = false;
 				break;
 			}
-		checkBoundries();
+			
+		//checkBoundries();
 		/* Here is where we clear the screen */
 		system("CLS");
-		cout << "Your current position of x = " << x << " and y = " << y <<
+		cout << "Your current position of x = " << player_current_x << " and y = " << player_current_y <<
 		endl;
-		cout << island[x][y] << endl;
+		cout << island[ player_current_x ][ player_current_y ] << endl;
 		}
 	}
 	

@@ -16,11 +16,15 @@ using namespace std;
 //Set up
 	//Vairable delairation.
 		//Array Vairablres
-	int i, j;	//Used for holding the index vairable for the array build up.
+	int i, j, score_x, score_y;	//Used for holding the index vairable for the array build up.
 	
-	const int aSize = 20;	//Used to define the array's size.	//Here it is used for 0-1
-	string island[aSize][aSize];	//2d array defined using the sizes passed in; AS it is not the array has 2 sets of 20.
-	
+	//const int aSize = 20;	//Used to define the array's size.	//Here it is used for 0-1
+	const int XSIZE = 20;	//Keeps track of the array's size, and it's min value; For each of it's dimensions
+		const int XMIN = 0;
+	const int YSIZE = 10;
+		const int YMIN = 0;
+	//string island[aSize][aSize];	//2d array defined using the sizes passed in; AS it is not the array has 2 sets of 20.
+	short int island[XSIZE][YSIZE];	//2D array defined using the sizes passed in.
 	
 		//player vairables 
 	char key_press;	//Holds the indivual key press
@@ -32,7 +36,6 @@ using namespace std;
 		
 		int player_current_x = 0;	//Holds the plauers current position, will be altered as they move
 		int player_current_y = 0;
-		
 		
 	class square_tile //Square class;
 	{		//Vairables
@@ -84,78 +87,78 @@ using namespace std;
 	};
 
 //check play space boundaries
-int checkBoundries( int position_to_check )	//Used to keep the player within predefined boundaries
+int checkBoundries( int position_to_check, int maximum, int minimum )	//Used to keep the player within predefined boundaries
 {
-	switch( position_to_check )
+	if( position_to_check == maximum )
 	{
-		case 10:
-			return 9;
-			break;
-			
-		case -1:
-			return 0;
-			break;
-			
-		default:
-			return position_to_check;
-			break;
+		return maximum --;
+	}
+		
+	else if( position_to_check == minimum )
+	{
+		return minimum ++;
 	}
 	
-	return position_to_check;
+	else
+	{
+		return position_to_check;
+	}
 }
 
-//Check array  
-//int array_element_counter(  
 int main()
 {	
 	srand (time(NULL));	//Has to be done in the main or it will not work
 	
-	//Defining the two squares
-	square_tile score_square;
-	
+	square_tile score_square; //Defining the two squares
 	square_tile damage_square;
 		damage_square.set_state( true );	//Set now so it does not need to be changed later
-	
-	//Setting positions
-		//Score square
-	score_square.set_x( rand() %10 );	//passes in a value less than 10
-	score_square.set_y( rand() %10 );
-	
+//Setting positions
+	//Score square
+	score_square.set_x( rand() % ( XSIZE - 1) );	//passes in a value less than 10
+	score_square.set_y( rand() % ( YSIZE - 1) );
 		//Damage square 
-	damage_square.set_x( rand() %10 );
-	damage_square.set_y( rand() %10	);
+	damage_square.set_x( rand() % ( XSIZE - 1 ) );
+	damage_square.set_y( rand() % ( YSIZE - 1 ) );	//Need to make a check to ensure there is no overlap	//Later 
 	
-	//Need to make a check to ensure there is no overlap	//Later 
-	
-	int index = 0; 
-	
-	while( true )
-
-	for (size_t i = 0; i < (sizeof(island) / sizeof(island[0])) - 1; i++)
-		{
-		for (size_t j = 0; j < (sizeof(island) / sizeof(island[0])) - 1; j++)
-			{
-			//initialising island map
-			island[i][j] = "Nothing here";
-			}
-		}
-		
+	cout<< "Score co-ordinates " << score_square.get_x() << " " << score_square.get_y() << endl;
+	cout<< "Damage co-ordinates " << damage_square.get_x() << " " << damage_square.get_y() << endl;
 	//Setting the values of locations on the island
-	/*island[0][0] = "Welcome to Island Adventure";
-	island[0][5] = "C++ is a middle level language ";
-
-
-	island[0][8] = "C++ syntax may be difficult, but it is a very powerful language ";
-	island[0][9] = "C++ language was developed by Bjarne Stroustrup ";
-	island[3][6] = "C++ Standard Library is a collection of classes and functions ";*/
+	for (size_t i = 0; i < ( XSIZE + 1 ) ; i++)
+	{
+		for (size_t j = 0; j < ( YSIZE + 1 ) ; j++)
+		{
+			island[ i ][ j ] = 0;//initialising island map, 0 values have nothing in their cell
+		}
+	}
+	/*island[0][0] = "Welcome to Island Adventure";island[0][5] = "C++ is a middle level language ";
+	island[0][8] = "C++ syntax may be difficult, but it is a very powerful language "; island[0][9] = "C++ language was developed by Bjarne Stroustrup "; island[3][6] = "C++ Standard Library is a collection of classes and functions ";*/
 	
-	cout << island[1][1] << endl;
-	bool flag = true;//this variable is used to exit the loop when
+	//Setting the co-ordinates.
+	island[ score_square.get_x() ][ score_square.get_y() ] = 1;
+	island[ damage_square.get_x() ][ damage_square.get_y() ] = 2;
 	
-	//any keys other than the arrow keys are pressed
-	cout << "Use arrow keys for the navigation, when you press anything else you forfit the game \n";
+	bool flag = true;//this variable is used to exit the loop when the player inputs an invalid value to escape the game
+	cout << "Use arrow keys for the navigation, when you press anything else you forfit the game,  your current location is " << player_current_x << " " << player_current_y << endl;
+	
 	while (flag)
 	{
+		
+		if( island[ player_current_x ][ player_current_y ] == 1 )
+		{
+			//Score reward if there is a match
+				//Then to move/ reset the score and damage squares=
+		}
+		
+		else if( island[ player_current_x ][ player_current_y ] == 2 )
+		{
+			//Damage the player
+		}
+		
+		else
+		{
+			;
+		}
+		
 		if (_getch() != 0)
 		{
 			key_press = _getch(); // need to include conio.h
@@ -164,33 +167,39 @@ int main()
 			switch (ascii_value)
 			{
 				case 72://integer value for the UP key
-				player_current_x--;
+				player_current_x --;
 				break;
 				
 				case 80://integer value for DOWN key
-				player_current_x++;
+				player_current_x ++;
 				break;
 				
 				case 77:// integer value for the RIGHT key
-				player_current_y++;
+				player_current_y ++;
 				break;
 				
 				case 75:// integer value for the LEFT key
-				player_current_y--;
+				player_current_y --;
 				break;
 				
 				default:
+				cout<< "Terminating game input" << endl;
 				flag = false;
 				break;
 			}
-			
-		//checkBoundries();
+		}
+		//Used to correct the position if they are out of bounds.
+		player_current_x = checkBoundries( player_current_x, XMIN, XSIZE );
+		player_current_y = checkBoundries( player_current_y, YMIN, YSIZE );
+		
+		//Scoring and Damage Check
+		
+		
 		/* Here is where we clear the screen */
 		system("CLS");
 		cout << "Your current position of x = " << player_current_x << " and y = " << player_current_y <<
 		endl;
 		cout << island[ player_current_x ][ player_current_y ] << endl;
-		}
 	}
 	
 	cout << "Thank you for playing Island Adventures \n";

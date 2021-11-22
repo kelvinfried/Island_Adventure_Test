@@ -24,6 +24,7 @@ using namespace std;
 		const int YMIN = 0;
 	//string island[aSize][aSize];	//2d array defined using the sizes passed in; AS it is not the array has 2 sets of 20.
 	short int island[XSIZE][YSIZE];	//2D array defined using the sizes passed in.
+	short int hint_square = 0;	//Used for drawing hints to the screen.
 	
 		//player vairables 
 	char key_press;	//Holds the indivual key press
@@ -122,6 +123,31 @@ int main()
 	damage_square.set_x( rand() % ( XSIZE - 1 ) );
 	damage_square.set_y( rand() % ( YSIZE - 1 ) );	//Need to make a check to ensure there is no overlap	//Later 
 	
+	if( ( score_square.get_x() == damage_square.get_x() ) && ( score_square.get_y() == damage_square.get_y() ) )	//ensures they are not the same value
+	{
+		while( true )
+		{
+			damage_square.set_x( rand() % ( XSIZE - 1 ) );
+			damage_square.set_y( rand() % ( YSIZE - 1 ) );	//Need to make a check to ensure there is no overlap	//Later 
+			
+			if( ( score_square.get_x() == damage_square.get_x() ) && ( score_square.get_y() == damage_square.get_y() ) )
+			{
+				break;	//Exits the while loop
+			}
+			
+			else
+			{
+				damage_square.set_x( rand() % ( XSIZE - 1 ) );
+				damage_square.set_y( rand() % ( YSIZE - 1 ) );	//Need to make a check to ensure there is no overlap	//Later 
+			}
+		}
+	}
+	
+	else
+	{
+		;
+	}
+	
 	//Setting the values of locations on the island
 	for (size_t i = 0; i < ( XSIZE + 1 ) ; i++)
 	{
@@ -154,6 +180,32 @@ int main()
 	 
 			damage_square.set_x( rand() % ( XSIZE - 1 ) );//Damage square
 			damage_square.set_y( rand() % ( YSIZE - 1 ) );	
+			
+			if( ( score_square.get_x() == damage_square.get_x() ) && ( score_square.get_y() == damage_square.get_y() ) )	//ensures they are not the same value
+			{
+				while( true )
+				{
+					damage_square.set_x( rand() % ( XSIZE - 1 ) );
+					damage_square.set_y( rand() % ( YSIZE - 1 ) );	//Need to make a check to ensure there is no overlap	//Later 
+					
+					if( ( score_square.get_x() == damage_square.get_x() ) && ( score_square.get_y() == damage_square.get_y() ) )
+					{
+						break;	//Exits the while loop
+					}
+					
+					else
+					{
+						damage_square.set_x( rand() % ( XSIZE - 1 ) );
+						damage_square.set_y( rand() % ( YSIZE - 1 ) );	//Need to make a check to ensure there is no overlap	//Later 
+					}
+				}
+			}
+			
+			else
+			{
+				;
+			}
+			
 					//Changing Island properties for the next targers
 			island[ score_square.get_x() ][ score_square.get_y() ] = 1;
 			island[ damage_square.get_x() ][ damage_square.get_y() ] = 2;
@@ -163,7 +215,6 @@ int main()
 		cout<< "Damage co-ordinates " << damage_square.get_x() << " " << damage_square.get_y() << endl;
 		cout<< "Your current position of x = " << player_current_x << " and y = " << player_current_y << endl;
 		cout<< "The players current health is " << player_hitpoints << " with a score of " << player_score << endl;
-		cout << island[ player_current_x ][ player_current_y ] << endl;
 		}
 		
 		else if( island[ player_current_x ][ player_current_y ] == 2 )
@@ -183,6 +234,8 @@ int main()
 		{
 			case 0:
 				cout<< "You have died" << endl;
+				flag = false;
+				
 				break;
 				
 			default:
@@ -218,7 +271,6 @@ int main()
 				break;
 			}
 		}
-		
 		//Used to correct the position if they are out of bounds.
 		player_current_x = checkBoundries( player_current_x, XSIZE, XMIN );
 		player_current_y = checkBoundries( player_current_y, YSIZE, YMIN );
@@ -229,8 +281,7 @@ int main()
 		cout<< "Damage co-ordinates " << damage_square.get_x() << " " << damage_square.get_y() << endl;
 		cout<< "Your current position of x = " << player_current_x << " and y = " << player_current_y << endl;
 		cout<< "The players current health is " << player_hitpoints << " with a score of " << player_score << endl;
-		cout << island[ player_current_x ][ player_current_y ] << endl;
 	}
 	
-	cout << "Thank you for playing Island Adventures \n";
+	cout << "Thank you for playing Island Adventures, you had a score of" << player_score << endl;
 }

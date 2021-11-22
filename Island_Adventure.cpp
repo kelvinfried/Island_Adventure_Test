@@ -33,8 +33,8 @@ using namespace std;
 		const int player_starting_y = 1;
 	int player_score = 0;	//Keeps track of the players score
 		
-		int player_current_x = 0;	//Holds the plauers current position, will be altered as they move
-		int player_current_y = 0;
+		int player_current_x = 5;	//Holds the plauers current position, will be altered as they move
+		int player_current_y = 5;
 		
 	class square_tile //Square class;
 	{		//Vairables
@@ -88,19 +88,22 @@ using namespace std;
 //check play space boundaries
 int checkBoundries( int position_to_check, int maximum, int minimum )	//Used to keep the player within predefined boundaries
 {
-	if( position_to_check > maximum )
+	if( position_to_check >= maximum )
 	{
 		return maximum --;
+		cout << "moving  value down" << endl;
 	}
 		
-	else if( position_to_check > minimum )
+	else if( position_to_check <= minimum )
 	{
 		return minimum ++;
+		cout << "moving  value up" << endl;
 	}
 	
 	else
 	{
 		return position_to_check;
+		cout << "Not moving value" << endl;
 	}
 }
 
@@ -119,9 +122,6 @@ int main()
 	damage_square.set_x( rand() % ( XSIZE - 1 ) );
 	damage_square.set_y( rand() % ( YSIZE - 1 ) );	//Need to make a check to ensure there is no overlap	//Later 
 	
-	cout<< "Score co-ordinates " << score_square.get_x() << " " << score_square.get_y() << endl;
-	cout<< "Damage co-ordinates " << damage_square.get_x() << " " << damage_square.get_y() << endl;
-	
 	//Setting the values of locations on the island
 	for (size_t i = 0; i < ( XSIZE + 1 ) ; i++)
 	{
@@ -130,9 +130,6 @@ int main()
 			island[ i ][ j ] = 0;//initialising island map, 0 values have nothing in their cell
 		}
 	}
-	/*island[0][0] = "Welcome to Island Adventure";island[0][5] = "C++ is a middle level language ";
-	island[0][8] = "C++ syntax may be difficult, but it is a very powerful language "; island[0][9] = "C++ language was developed by Bjarne Stroustrup "; island[3][6] = "C++ Standard Library is a collection of classes and functions ";*/
-	
 	//Setting the co-ordinates.
 	island[ score_square.get_x() ][ score_square.get_y() ] = 1;
 	island[ damage_square.get_x() ][ damage_square.get_y() ] = 2;
@@ -157,10 +154,16 @@ int main()
 	 
 			damage_square.set_x( rand() % ( XSIZE - 1 ) );//Damage square
 			damage_square.set_y( rand() % ( YSIZE - 1 ) );	
-			
 					//Changing Island properties for the next targers
 			island[ score_square.get_x() ][ score_square.get_y() ] = 1;
 			island[ damage_square.get_x() ][ damage_square.get_y() ] = 2;
+			
+			//system("CLS");
+		cout<< "Score co-ordinates " << score_square.get_x() << " " << score_square.get_y() << endl;
+		cout<< "Damage co-ordinates " << damage_square.get_x() << " " << damage_square.get_y() << endl;
+		cout<< "Your current position of x = " << player_current_x << " and y = " << player_current_y << endl;
+		cout<< "The players current health is " << player_hitpoints << " with a score of " << player_score << endl;
+		cout << island[ player_current_x ][ player_current_y ] << endl;
 		}
 		
 		else if( island[ player_current_x ][ player_current_y ] == 2 )
@@ -217,11 +220,13 @@ int main()
 		}
 		
 		//Used to correct the position if they are out of bounds.
-		player_current_x = checkBoundries( player_current_x, XMIN, XSIZE );
-		player_current_y = checkBoundries( player_current_y, YMIN, YSIZE );
+		player_current_x = checkBoundries( player_current_x, XSIZE, XMIN );
+		player_current_y = checkBoundries( player_current_y, YSIZE, YMIN );
 		
 		/* Here is where we clear the screen */
-		system("CLS");
+		//system("CLS");
+		cout<< "Score co-ordinates " << score_square.get_x() << " " << score_square.get_y() << endl;
+		cout<< "Damage co-ordinates " << damage_square.get_x() << " " << damage_square.get_y() << endl;
 		cout<< "Your current position of x = " << player_current_x << " and y = " << player_current_y << endl;
 		cout<< "The players current health is " << player_hitpoints << " with a score of " << player_score << endl;
 		cout << island[ player_current_x ][ player_current_y ] << endl;

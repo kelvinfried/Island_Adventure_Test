@@ -215,6 +215,8 @@ int main()
 		cout<< "Damage co-ordinates " << damage_square.get_x() << " " << damage_square.get_y() << endl;
 		cout<< "Your current position of x = " << player_current_x << " and y = " << player_current_y << endl;
 		cout<< "The players current health is " << player_hitpoints << " with a score of " << player_score << endl;
+		cout<< "" << endl;
+		
 		}
 		
 		else if( island[ player_current_x ][ player_current_y ] == 2 )
@@ -271,6 +273,23 @@ int main()
 				break;
 			}
 		}
+		
+		//Player hints 
+		if( player_current_x == score_square.get_x() )
+		{
+			cout<< "Getting warmer" << endl;
+		}
+		
+		else if( player_current_y == score_square.get_y() )
+		{
+			cout<< "Getting closer" << endl;
+		}
+		
+		else
+		{
+			;
+		}
+		
 		//Used to correct the position if they are out of bounds.
 		player_current_x = checkBoundries( player_current_x, XSIZE, XMIN );
 		player_current_y = checkBoundries( player_current_y, YSIZE, YMIN );
@@ -281,6 +300,7 @@ int main()
 		cout<< "Damage co-ordinates " << damage_square.get_x() << " " << damage_square.get_y() << endl;
 		cout<< "Your current position of x = " << player_current_x << " and y = " << player_current_y << endl;
 		cout<< "The players current health is " << player_hitpoints << " with a score of " << player_score << endl;
+		cout<< "" << endl;
 	}
 	
 	cout << "Thank you for playing Island Adventures, you had a score of" << player_score << endl;
